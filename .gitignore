@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+/jars
+/Myrrixjars/output/Myrrixjars.Rcheck
+/Myrrixjars/pkg/man
+/Myrrix/output/Myrrix.Rcheck
+/Myrrix/pkg/man
+/pkg/man
+*\.dll
+*\.so
+*\.[oa]
