@@ -1,0 +1,40 @@
+%\VignetteIndexEntry{TODO}
+
+\documentclass[nojss]{jss}
+\title{TODO \\ TODO}
+\author{Jan Wijffels}
+\Plainauthor{Jan Wijffels}
+\Plaintitle{TODO}
+\Abstract{
+TODO
+}
+\Keywords{TODO}
+\Plainkeywords{TODO}
+
+\Address{
+  BNOSAC\\
+  Belgium Network of Open Source Analytical Consultants\\
+  Limnanderstraat 26, 1070 Anderlecht\\
+  E-mail: \email{jwijffels@bnosac.be}\\
+  URL: \url{http://www.bnosac.be}
+}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+<<preliminaries, echo=FALSE, results=hide>>=
+options(prompt = "R> ", continue = "+   ")
+options(prompt = " ", continue = "   ")
+set.seed(123456789)
+
+@
+
+\section{TODO}
+\subsection{TODO}
+TODO
+\begin{itemize}
+  \item TODO
+  \item TODO
+\end{itemize}
+
+\end{document}

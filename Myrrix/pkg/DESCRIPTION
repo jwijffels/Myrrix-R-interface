@@ -1,0 +1,25 @@
+Package: Myrrix
+Version: 1.0
+Title: Interface to Myrrix. Myrrix is a complete, real-time, scalable
+    clustering and recommender system, evolved from Apache Mahout.
+Authors@R: c(person("Jan", "Wijffels", role = c("aut", "cre"), email =
+    "jwijffels@bnosac.be"))
+Description: Recommendation engine based on Myrrix. Myrrix is a complete,
+    real-time, scalable clustering and recommender system, evolved from Apache
+    Mahout. It uses Alternating Least Squares to build a recommendation engine.
+Depends:
+    R (>= 2.6.0),
+    methods,
+    Myrrixjars
+Imports:
+    ffbase,
+    rJava (>= 0.6-3)
+Suggests:
+    testthat
+SystemRequirements: Java (>= 5.0)
+License: Apache License (== 2.0)
+Author: Jan Wijffels [aut, cre]
+Maintainer: Jan Wijffels <jwijffels@bnosac.be>
+URL: http://www.bnosac.be, myrrix.com
+Collate:
+    'MyrrixClientConfiguration.R'
