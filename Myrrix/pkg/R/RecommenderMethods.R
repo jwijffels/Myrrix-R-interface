@@ -56,6 +56,7 @@
 #' @aliases await await,ClientRecommender-method await,ServerRecommender-method
 #' @seealso \code{\link{ClientRecommender-class}}, \code{\link{ServerRecommender-class}}
 #' @exportMethod await
+#' @importFrom rJava .jlong
 #' @examples
 #' ##
 #' ## Set Hyperparameters to tune the Myrrix recommendation engine
@@ -65,6 +66,25 @@
 #' setMyrrixHyperParameters(params=list(model.iterations.max = 10, model.features=30, model.als.lambda=0.1))
 #' x <- getMyrrixHyperParameters(parameters=c("model.iterations.max","model.features","model.als.lambda"))
 #' str(x)
+#' ##
+#' ## Build a recommendation model locally
+#' ##
+#' \dontrun{
+#' inputfile <- file.path(tempdir(), "audioscrobbler-data.subset.csv.gz")
+#' download.file(url="http://dom2bevkhhre1.cloudfront.net/audioscrobbler-data.subset.csv.gz", destfile = inputfile)
+#' ## Set hyperparameters
+#' setMyrrixHyperParameters(params=list(model.iterations.max = 2, model.features=10, model.als.lambda=0.1))
+#' x <- getMyrrixHyperParameters(parameters=c("model.iterations.max","model.features","model.als.lambda"))
+#' str(x)
+#' ## Build a model which will be stored in getwd() and ingest the data file into it
+#' recommendationengine <- new("ServerRecommender", localInputDir=getwd())
+#' ingest(recommendationengine, inputfile)
+#' await(recommendationengine)
+#' ## Get all users/items and score
+#' items <- getAllItemIDs(recommendationengine)
+#' users <- getAllUserIDs(recommendationengine)
+#' estimatePreference(recommendationengine, userID=users[1], itemIDs=items[1:20])
+#' }
 setGeneric("await", function(object, ...) standardGeneric("await"))
 setMethod("await", "ClientRecommender", function(object) object@recommender$await())
 setMethod("await", "ServerRecommender", function(object) object@recommender$await())
@@ -84,18 +104,31 @@ setMethod("getAllUserIDs", "ClientRecommender", function(object) object@recommen
 setMethod("getAllUserIDs", "ServerRecommender", function(object) object@recommender$getAllUserIDs()$toArray())
 
 #' @rdname RecommenderMethods-methods
-#' @aliases estimatePreference estimatePreference,ClientRecommender,numeric,numeric-method 
+#' @aliases estimatePreference estimatePreference,ServerRecommender,numeric,numeric-method estimatePreference,ClientRecommender,numeric,numeric-method 
 #' @exportMethod estimatePreference
 setGeneric("estimatePreference", function(object, userID, itemIDs, ...) standardGeneric("estimatePreference"))
-setMethod("estimatePreference", signature=signature(object = "ClientRecommender", userID="numeric", itemIDs="numeric"),
-          definition = function(object, userID, itemIDs){
-            stopifnot(length(userID) == 1)
-            if(length(itemIDs) == 1){
-              return(object@recommender$estimatePreference(.jlong(userID), .jlong(itemIDs)))
-            }else{
-              return(object@recommender$estimatePreferences(.jlong(userID), .jlong(itemIDs)))
-            }
-          })
+.estimatePreference <- function(object, userID, itemIDs){
+  stopifnot(length(userID) == 1)
+  if(length(itemIDs) == 1){
+    return(object@recommender$estimatePreference(.jlong(userID), .jlong(itemIDs)))
+  }else{
+    return(object@recommender$estimatePreferences(.jlong(userID), .jlong(itemIDs)))
+  }
+}
+setMethod("estimatePreference", signature=signature(object = "ClientRecommender", userID="numeric", itemIDs="numeric"), definition = .estimatePreference)
+setMethod("estimatePreference", signature=signature(object = "ServerRecommender", userID="numeric", itemIDs="numeric"), definition = .estimatePreference)
+
+#' @rdname RecommenderMethods-methods
+#' @aliases ingest ingest,ServerRecommender,character-method  ingest,ClientRecommender,character-method 
+#' @exportMethod ingest
+setGeneric("ingest", function(object, file, ...) standardGeneric("ingest"))
+.ingest <- function(object, file){
+  stopifnot(file.exists(file))
+  ingestme <- .jnew("java.io.File", file)
+  object@recommender$ingest(ingestme)
+}
+setMethod("ingest", signature=signature(object = "ClientRecommender", file="character"), definition = .ingest)
+setMethod("ingest", signature=signature(object = "ServerRecommender", file="character"), definition = .ingest)
 
 
 
