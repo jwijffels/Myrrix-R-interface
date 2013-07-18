@@ -23,3 +23,6 @@ Maintainer: Jan Wijffels <jwijffels@bnosac.be>
 URL: http://www.bnosac.be, myrrix.com
 Collate:
     'MyrrixClientConfiguration.R'
+    'ClientRecommender.R'
+    'ServerRecommender.R'
+    'RecommenderMethods.R'
