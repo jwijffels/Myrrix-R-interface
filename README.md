@@ -12,8 +12,11 @@ An example is shown below.
 To start up building recommendation engines, install the R packages Myrrixjars and Myrrix as follows.
 
     library(devtools)
+    install.packages("rJava")
+    install.packages("ffbase")
     install_github("Myrrix-R-interface", "jwijffels", subdir="/Myrrixjars/pkg")
     install_github("Myrrix-R-interface", "jwijffels", subdir="/Myrrix/pkg")
+    
 
 # Running Myrrix
 The following example shows the basic usage on how to use Myrrix to build a local recommendation engine.
