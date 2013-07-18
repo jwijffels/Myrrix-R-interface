@@ -3,7 +3,8 @@ Myrrix-R-interface
 
 Let R talk to Myrrix. Myrrix is a complete, real-time, scalable clustering and recommender system, evolved from Apache Mahout.
 
-For more information about Myrrix, go to myrrix.com.
+For more information about Myrrix, go to [myrrixwebsite](http://myrrix.com "http://myrrix.com").
+
 The R packages allow to build recommendation engines using Myrrix and interact with it.
 An example is shown below.
 
@@ -15,6 +16,8 @@ To start up building recommendation engines, install the R packages Myrrixjars a
     install_github("Myrrix-R-interface", "jwijffels", subdir="/Myrrix/pkg")
 
 # Running Myrrix
+The following example shows the basic usage on how to use Myrrix to build a local recommendation engine.
+It uses the audioscrobbler data available on the Myrrix website.
 
     library(Myrrix)
     
