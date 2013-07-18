@@ -7,6 +7,13 @@ For more information about Myrrix, go to myrrix.com.
 The R packages allow to build recommendation engines using Myrrix and interact with it.
 An example is shown below.
 
+# Install Myrrixjars and Myrrix
+To start up building recommendation engines, install the R packages Myrrixjars and Myrrix as follows.
+
+    library(devtools)
+    install_github("Myrrix-R-interface", "jwijffels", subdir="/Myrrixjars/pkg")
+    install_github("Myrrix-R-interface", "jwijffels", subdir="/Myrrix/pkg")
+
 # Running Myrrix
 
     library(Myrrix)
