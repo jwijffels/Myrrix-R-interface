@@ -30,3 +30,5 @@ An example is shown below.
     users <- getAllUserIDs(recommendationengine)
     estimatePreference(recommendationengine, userID=users[1], itemIDs=items[1:20])
     estimatePreference(recommendationengine, userID=users[10], itemIDs=items)
+    mostPopularItems(recommendationengine, howMany=10L)
+    recommend(recommendationengine, userID=users[5], howMany=10L)

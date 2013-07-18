@@ -27,3 +27,4 @@ Collate:
     'ServerRecommender.R'
     'RecommenderMethods.R'
     'HyperParameters.R'
+    'utils.R'

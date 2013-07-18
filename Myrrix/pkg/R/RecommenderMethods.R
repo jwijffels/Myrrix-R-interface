@@ -3,7 +3,8 @@
 #' Objects of \code{ClientRecommender} and \code{ServerRecommender} behave similarly for the user. 
 #' Both are classes which provide the interface with the recommendation engine of Myrrix, 
 #' which is either running locally or in a distributed fashion.\cr
-#' The methods which can be applied on this recommendation engine are \code{await}, \code{getAllItemIDs}, \code{getAllUserIDs}, \code{estimatePreference}.\cr
+#' The methods which can be applied on this recommendation engine are \code{await}, \code{getAllItemIDs}, \code{getAllUserIDs}, 
+#' \code{estimatePreference}, \code{mostPopularItems}, \code{recommend}.\cr
 #' If Myrrix is running locally, you can set the hyperparameters of the recommendation engine which are set
 #' in java system variables and are used by Myrrix. This can be done by using the provided methods
 #' \code{setMyrrixHyperParameters} and \code{getMyrrixHyperParameters}. A full description of 
@@ -19,6 +20,8 @@
 #'    \item{\code{getAllItemIDs(ClientRecommender/ServerRecommender)}:}{Get all item id's known to the model}
 #'    \item{\code{getAllUserIDs(ClientRecommender/ServerRecommender)}:}{Get all user id's known to the model}
 #'    \item{\code{estimatePreference(ClientRecommender/ServerRecommender, userID, itemIDs)}:}{Score a user for different items alongside the recommendation engine}
+#'    \item{\code{mostPopularItems(ClientRecommender/ServerRecommender, howMany)}:}{Get the most popular items}
+#'    \item{\code{recommend(ClientRecommender/ServerRecommender, userID, howMany)}:}{Recommend a number of items to a specific user}
 #'  }
 #' @section Hyperparameters: 
 #'  \describe{
@@ -50,6 +53,7 @@
 #' @param params a list of hyperparameters to set for building the recommendation engine. Where
 #' the names of the list elements need to be part of the specified hyperparameters below. See the examples.
 #' @param parameters a character vector of names of hyperparameters to obtain the values. See the examples.
+#' @param howMany an integer indicating how many popular items you want in the call to \code{mostPopularItems} and \code{recommend}
 #' @param ... other arguments passed on to the methods
 #' @name RecommenderMethods-methods
 #' @rdname RecommenderMethods-methods
@@ -83,7 +87,9 @@
 #' ## Get all users/items and score
 #' items <- getAllItemIDs(recommendationengine)
 #' users <- getAllUserIDs(recommendationengine)
-#' estimatePreference(recommendationengine, userID=users[1], itemIDs=items[1:20])
+#' estimatePreference(recommendationengine, userID=users[5], itemIDs=items[1:20])
+#' mostPopularItems(recommendationengine, howMany=10L)
+#' recommend(recommendationengine, userID=users[5], howMany=10L)
 #' }
 setGeneric("await", function(object, ...) standardGeneric("await"))
 setMethod("await", "ClientRecommender", function(object) object@recommender$await())
@@ -130,7 +136,26 @@ setGeneric("ingest", function(object, file, ...) standardGeneric("ingest"))
 setMethod("ingest", signature=signature(object = "ClientRecommender", file="character"), definition = .ingest)
 setMethod("ingest", signature=signature(object = "ServerRecommender", file="character"), definition = .ingest)
 
+#' @rdname RecommenderMethods-methods
+#' @aliases mostPopularItems mostPopularItems,ServerRecommender,integer-method  mostPopularItems,ClientRecommender,integer-method 
+#' @exportMethod mostPopularItems
+setGeneric("mostPopularItems", function(object, howMany, ...) standardGeneric("mostPopularItems"))
+.mostPopularItems <- function(object, howMany){
+  x <- object@recommender$mostPopularItems(howMany)
+  scores <- .org.apache.mahout.cf.taste.recommender.RecommendedItem_list_to_Rlist(x)
+  scores
+}
+setMethod("mostPopularItems", signature=signature(object = "ClientRecommender", howMany="integer"), definition = .mostPopularItems)
+setMethod("mostPopularItems", signature=signature(object = "ServerRecommender", howMany="integer"), definition = .mostPopularItems)
 
-
-
-
+#' @rdname RecommenderMethods-methods
+#' @aliases recommend recommend,ServerRecommender,numeric,integer-method  recommend,ClientRecommender,numeric,integer-method 
+#' @exportMethod recommend
+setGeneric("recommend", function(object, userID, howMany, ...) standardGeneric("recommend"))
+.recommend <- function(object, userID, howMany){
+  x <- object@recommender$recommend(.jlong(userID), howMany)
+  scores <- .org.apache.mahout.cf.taste.recommender.RecommendedItem_list_to_Rlist(x)
+  scores
+}
+setMethod("recommend", signature=signature(object = "ClientRecommender", userID="numeric", howMany="integer"), definition = .recommend)
+setMethod("recommend", signature=signature(object = "ServerRecommender", userID="numeric", howMany="integer"), definition = .recommend)
