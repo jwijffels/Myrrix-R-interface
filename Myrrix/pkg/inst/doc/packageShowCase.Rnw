@@ -1,10 +1,10 @@
 %\VignetteIndexEntry{TODO}
 
 \documentclass[nojss]{jss}
-\title{TODO \\ TODO}
+\title{R interface to Myrrix \\ Large-scale distributed recommendations}
 \author{Jan Wijffels}
 \Plainauthor{Jan Wijffels}
-\Plaintitle{TODO}
+\Plaintitle{R interface to Myrrix - Large-scale distributed recommendations}
 \Abstract{
 TODO
 }

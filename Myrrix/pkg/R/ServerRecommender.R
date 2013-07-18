@@ -20,7 +20,8 @@
 #' @param instanceID character string with the instance ID that the Serving Layer is serving. May be 0 for local mode.
 #' @param localInputDir character string with the local input and model file directory
 #' @param partition integer with the partition number in a partitioned distributed mode. 0 if not partitioned.
-#' @param allPartitions TODO reference to an object that can describe all partitions; only used to get their count
+#' @param allPartitions reference to an object that can describe all partitions; only used to get their count 
+#' (seee http://myrrix.com/docs/serving/javadoc/index.html)
 #' @name ServerRecommender-class 
 #' @rdname ServerRecommender-class
 #' @aliases ServerRecommender-class
