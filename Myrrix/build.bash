@@ -12,5 +12,5 @@ cd output
 R CMD build --resave-data ../pkg
 for x in *.tar.gz 
 do 
-    R CMD check $x
+    R CMD check --as-cran $x
 done
