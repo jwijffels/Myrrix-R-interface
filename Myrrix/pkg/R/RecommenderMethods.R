@@ -67,18 +67,24 @@
 #' ##
 #' x <- getMyrrixHyperParameters()
 #' str(x)
-#' setMyrrixHyperParameters(params=list(model.iterations.max = 10, model.features=30, model.als.lambda=0.1))
-#' x <- getMyrrixHyperParameters(parameters=c("model.iterations.max","model.features","model.als.lambda"))
+#' setMyrrixHyperParameters(
+#'  params=list(model.iterations.max = 10, model.features=30, model.als.lambda=0.1))
+#' x <- getMyrrixHyperParameters(
+#'  parameters=c("model.iterations.max","model.features","model.als.lambda"))
 #' str(x)
 #' ##
 #' ## Build a recommendation model locally
 #' ##
 #' \dontrun{
 #' inputfile <- file.path(tempdir(), "audioscrobbler-data.subset.csv.gz")
-#' download.file(url="http://dom2bevkhhre1.cloudfront.net/audioscrobbler-data.subset.csv.gz", destfile = inputfile)
+#' download.file(
+#'  url="http://dom2bevkhhre1.cloudfront.net/audioscrobbler-data.subset.csv.gz", 
+#'  destfile = inputfile)
 #' ## Set hyperparameters
-#' setMyrrixHyperParameters(params=list(model.iterations.max = 2, model.features=10, model.als.lambda=0.1))
-#' x <- getMyrrixHyperParameters(parameters=c("model.iterations.max","model.features","model.als.lambda"))
+#' setMyrrixHyperParameters(
+#'  params=list(model.iterations.max = 2, model.features=10, model.als.lambda=0.1))
+#' x <- getMyrrixHyperParameters(
+#'  parameters=c("model.iterations.max","model.features","model.als.lambda"))
 #' str(x)
 #' ## Build a model which will be stored in getwd() and ingest the data file into it
 #' recommendationengine <- new("ServerRecommender", localInputDir=getwd())
