@@ -1,5 +1,5 @@
 Package: Myrrixjars
-Version: 1.0-1
+Version: 1.0-2
 Title: External jars required for package Myrrix.
 Authors@R: c(person("Jan", "Wijffels", role = c("aut", "cre"), email =
     "jwijffels@bnosac.be"))
