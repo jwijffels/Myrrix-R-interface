@@ -1,10 +1,9 @@
 Package: Myrrixjars
 Version: 1.0-2
-Title: External jars required for package Myrrix.
+Title: R/Myrrix Interface Jars
 Authors@R: c(person("Jan", "Wijffels", role = c("aut", "cre"), email =
     "jwijffels@bnosac.be"))
-Description: External jars required for package Myrrix. Myrrix is a
-    recommendation engine
+Description: External jars required for package 'Myrrix'. 'Myrrix' is a recommendation engine.
 Depends:
     R (>= 2.6.0)
 Imports:
@@ -13,6 +12,6 @@ SystemRequirements: Java (>= 5.0)
 License: Apache License (== 2.0)
 Author: Jan Wijffels [aut, cre]
 Maintainer: Jan Wijffels <jwijffels@bnosac.be>
-URL: http://www.bnosac.be, myrrix.com
+URL: https://github.com/jwijffels/Myrrix-R-interface
 Collate:
     'onLoad.R'
