@@ -1,7 +1,6 @@
 Package: Myrrix
 Version: 1.2
-Title: Interface to Myrrix. Myrrix is a complete, real-time, scalable
-    clustering and recommender system, evolved from Apache Mahout
+Title: Interface to Myrrix. Myrrix is a Complete, Real-Time, Scalable Clustering and Recommender System, Evolved from Apache Mahout
 Authors@R: c(person("Jan", "Wijffels", role = c("aut", "cre"), email =
     "jwijffels@bnosac.be"))
 Description: Recommendation engine based on Myrrix. Myrrix is a complete,
