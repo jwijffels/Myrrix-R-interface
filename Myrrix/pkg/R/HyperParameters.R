@@ -18,9 +18,10 @@ setGeneric("getMyrrixHyperParameters", function(parameters, ...) standardGeneric
 .getMyrrixHyperParameters <- function(parameters){
   javasystem <- .jnew("java.lang.System")            
   systemproperties <- list()
-  props <- javasystem$getProperties()$entrySet()$iterator()
-  while(props$hasNext()){
-    entry <- props$nextElement()
+  props <- javasystem$getProperties()$entrySet()
+  props <- props$toArray()
+  for(i in seq_len(props$length)){
+    entry <- props[[i]]
     systemproperties[[entry$getKey()]] <- entry$getValue()
   }           
   systemproperties
